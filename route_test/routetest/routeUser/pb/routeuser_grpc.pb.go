@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.24.3
-// source: routeUser/routeUser.proto
+// source: routeuser.proto
 
-package __
+package pb
 
 import (
 	context "context"
@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	RouteUser_CreateUser_FullMethodName = "/routetest.RouteUser/createUser"
+	RouteUser_GetUser_FullMethodName = "/routetest.RouteUser/GetUser"
 )
 
 // RouteUserClient is the client API for RouteUser service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RouteUserClient interface {
-	CreateUser(ctx context.Context, in *Profile, opts ...grpc.CallOption) (*Reply, error)
+	GetUser(ctx context.Context, in *Profile, opts ...grpc.CallOption) (*Reply, error)
 }
 
 type routeUserClient struct {
@@ -37,9 +37,9 @@ func NewRouteUserClient(cc grpc.ClientConnInterface) RouteUserClient {
 	return &routeUserClient{cc}
 }
 
-func (c *routeUserClient) CreateUser(ctx context.Context, in *Profile, opts ...grpc.CallOption) (*Reply, error) {
+func (c *routeUserClient) GetUser(ctx context.Context, in *Profile, opts ...grpc.CallOption) (*Reply, error) {
 	out := new(Reply)
-	err := c.cc.Invoke(ctx, RouteUser_CreateUser_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RouteUser_GetUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *routeUserClient) CreateUser(ctx context.Context, in *Profile, opts ...g
 // All implementations must embed UnimplementedRouteUserServer
 // for forward compatibility
 type RouteUserServer interface {
-	CreateUser(context.Context, *Profile) (*Reply, error)
+	GetUser(context.Context, *Profile) (*Reply, error)
 	mustEmbedUnimplementedRouteUserServer()
 }
 
@@ -58,8 +58,8 @@ type RouteUserServer interface {
 type UnimplementedRouteUserServer struct {
 }
 
-func (UnimplementedRouteUserServer) CreateUser(context.Context, *Profile) (*Reply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedRouteUserServer) GetUser(context.Context, *Profile) (*Reply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
 func (UnimplementedRouteUserServer) mustEmbedUnimplementedRouteUserServer() {}
 
@@ -74,20 +74,20 @@ func RegisterRouteUserServer(s grpc.ServiceRegistrar, srv RouteUserServer) {
 	s.RegisterService(&RouteUser_ServiceDesc, srv)
 }
 
-func _RouteUser_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RouteUser_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Profile)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RouteUserServer).CreateUser(ctx, in)
+		return srv.(RouteUserServer).GetUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: RouteUser_CreateUser_FullMethodName,
+		FullMethod: RouteUser_GetUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RouteUserServer).CreateUser(ctx, req.(*Profile))
+		return srv.(RouteUserServer).GetUser(ctx, req.(*Profile))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -100,10 +100,10 @@ var RouteUser_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RouteUserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "createUser",
-			Handler:    _RouteUser_CreateUser_Handler,
+			MethodName: "GetUser",
+			Handler:    _RouteUser_GetUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "routeUser/routeUser.proto",
+	Metadata: "routeuser.proto",
 }

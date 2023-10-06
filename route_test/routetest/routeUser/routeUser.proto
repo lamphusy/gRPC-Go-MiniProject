@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package routetest;
+package routeUser;
 
-option go_package = "./";
+option go_package = "./pb";
 
 service RouteUser{
-    rpc createUser(Profile) returns (Reply) {}
+    rpc GetUser(Profile) returns (Reply) {}
 }
 message Profile {
     fixed32 id  = 1;
@@ -17,4 +17,6 @@ message Profile {
 
 message Reply {
     string message = 1;
+
+    Profile information = 2;
 }
