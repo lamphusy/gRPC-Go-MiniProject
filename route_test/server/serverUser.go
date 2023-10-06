@@ -7,7 +7,6 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/proto"
 
 	pb "grpc-test/route_test/routetest/routeUser/pb"
 )
@@ -27,16 +26,29 @@ type serverUser struct {
 
 // GetUser return User's Information
 func (s *serverUser) GetUser(ctx context.Context, profile *pb.Profile) (*pb.Reply, error) {
-	for _, reply := range s.savedReply {
-		if proto.Equal(reply.Information, profile) {
-			return reply, nil
-		}
+
+	// for _, reply := range s.savedReply {
+	// 	if proto.Equal(reply.Information, profile) {
+	// 		return reply, nil
+	// 	}
+	// }
+	// return &pb.Reply{Information: profile}, nil
+
+	reply := &pb.Reply{
+		Message: "Userdata retrieve successfully",
+		Information: &pb.Profile{
+			Id:       12356,
+			Name:     "Erling Haaland",
+			Email:    "haaland@gmail.com",
+			Mobile:   "0971820510",
+			Password: "haaland123",
+		},
 	}
-	return &pb.Reply{Information: profile}, nil
+	return reply, nil
 }
 
 func main() {
-	listener, err := net.Listen("tcp", ":8080")
+	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -47,13 +59,3 @@ func main() {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
-
-var exampleData = []byte(`[	
-	"information":{
-		"id"  : 162356,
-		"name"  = "Erling Haaland" ,
-		"email" = "haaland@gmail.com",
-		"mobile" = "0971820510",
-		"password" = "haaland123",
-	},
-]`)

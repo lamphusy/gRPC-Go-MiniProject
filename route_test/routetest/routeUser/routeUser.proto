@@ -6,6 +6,7 @@ option go_package = "./pb";
 
 service RouteUser{
     rpc GetUser(Profile) returns (Reply) {}
+    rpc LoginUser(Profile) returns (Status) {}
 }
 message Profile {
     fixed32 id  = 1;
@@ -19,4 +20,8 @@ message Reply {
     string message = 1;
 
     Profile information = 2;
+}
+
+message Status {
+    string message = 1;
 }
