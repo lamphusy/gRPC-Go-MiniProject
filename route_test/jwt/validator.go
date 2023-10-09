@@ -3,7 +3,7 @@ package jwt
 import (
 	"crypto"
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"github.com/golang-jwt/jwt"
 )
@@ -13,7 +13,7 @@ type Validator struct {
 }
 
 func NewValidator(publicKeyPath string) (*Validator, error) {
-	keyBytes, err := ioutil.ReadFile(publicKeyPath)
+	keyBytes, err := os.ReadFile(publicKeyPath)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read public key file: %w", err)
 	}

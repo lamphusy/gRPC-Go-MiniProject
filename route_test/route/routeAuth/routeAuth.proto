@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package routeAuth;
+
+// service RouteAuth{
+//     rpc authenticateUser() returns () {}
+// }
+
+message AuthInformation {
+    string id = 1;
+    string email = 2;
+}

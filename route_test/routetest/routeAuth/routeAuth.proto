@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package routetest;
-
-// service RouteAuth{
-//     rpc authenticateUser() returns () {}
-// }

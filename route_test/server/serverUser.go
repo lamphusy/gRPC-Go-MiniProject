@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "grpc-test/route_test/routetest/routeUser/pb"
+	pb "grpc-test/route_test/route/routeUser/pb"
 )
 
 var (
